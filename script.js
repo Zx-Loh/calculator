@@ -1,7 +1,7 @@
 let firstNumber = 0
 let secondNumber = 0
 let operator = ""
-
+const screen = document.querySelector("#screen")
 
 
 function add(a, b) {
@@ -38,4 +38,9 @@ function operate(a, b, sign) {
             divide(a, b)
             break;
     }
+}
+
+function updateDisplay(button) {
+    let content = document.createTextNode(button);
+    screen.appendChild(content)
 }
