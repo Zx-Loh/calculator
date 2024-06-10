@@ -2,6 +2,12 @@ let firstNumber = 0
 let secondNumber = 0
 let operator = ""
 const screen = document.querySelector("#screen")
+const buttons = document.querySelectorAll(".button")
+
+
+buttons.forEach((item) => {
+    item.addEventListener("click", updateDisplay)
+})
 
 
 function add(a, b) {
@@ -40,7 +46,14 @@ function operate(a, b, sign) {
     }
 }
 
-function updateDisplay(button) {
-    let content = document.createTextNode(button);
-    screen.appendChild(content)
+function updateDisplay(event) {
+    const buttonnText = event.target.innerText
+    if (buttonnText == "CLEAR") {
+        screen.replaceChildren()
+    } else if (buttonnText == "DELETE" && screen.hasChildNodes()) {
+        screen.removeChild(screen.lastChild)
+    } else if (buttonnText != "DELETE" && buttonnText!= "CLEAR"){
+        let content = document.createTextNode(buttonnText);
+        screen.appendChild(content)
+    }
 }
