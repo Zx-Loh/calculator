@@ -48,12 +48,16 @@ function operate(a, b, sign) {
 
 function updateDisplay(event) {
     const buttonnText = event.target.innerText
-    if (buttonnText == "CLEAR") {
+    if (buttonnText == "CLEAR" && screen.hasChildNodes()) {
         screen.replaceChildren()
+
     } else if (buttonnText == "DELETE" && screen.hasChildNodes()) {
         screen.removeChild(screen.lastChild)
+
     } else if (buttonnText != "DELETE" && buttonnText!= "CLEAR"){
         let content = document.createTextNode(buttonnText);
         screen.appendChild(content)
     }
 }
+
+
