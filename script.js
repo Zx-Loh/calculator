@@ -1,14 +1,53 @@
-let firstNumber = 0
-let secondNumber = 0
+let firstNumber = ""
+let secondNumber = ""
 let operator = ""
 const screen = document.querySelector("#screen")
 const buttons = document.querySelectorAll(".button")
 
 
 buttons.forEach((item) => {
-    item.addEventListener("click", updateDisplay)
+    item.addEventListener("click", buttonPress)
 })
 
+function buttonPress(event) {
+    const buttonText = event.target.innerText
+
+    if (buttonText == "CLEAR" && screen.hasChildNodes()) {
+        screen.replaceChildren()
+
+    } else if (buttonText == "DELETE" && screen.hasChildNodes()) {
+        screen.removeChild(screen.lastChild)
+
+    } else if (buttonText == "=" && secondNumber && operator) {
+        operate(firstNumber, secondNumber, operator)
+
+    } else if (buttonText != "DELETE" && buttonText != "CLEAR" && buttonText != "=") {
+        updateDisplay(buttonText)
+    }
+}
+
+function updateDisplay(keyPressed) {
+    switch(keyPressed) {
+        case "+":
+        case "-":
+        case "/":
+        case "*":
+            let content = document.createTextNode(keyPressed);
+            screen.appendChild(content)
+            firstNumber = keyPressed
+            operator = keyPressed
+            break
+
+        default:
+            if (firstNumber == "") {
+                const buttonText = parseInt(numberPressed)
+                let content = document.createTextNode(buttonText);
+                screen.appendChild(content)
+                firstNumber = keyPressed
+            } 
+    }
+
+}
 
 function add(a, b) {
     return a + b
@@ -45,19 +84,3 @@ function operate(a, b, sign) {
             break;
     }
 }
-
-function updateDisplay(event) {
-    const buttonnText = event.target.innerText
-    if (buttonnText == "CLEAR" && screen.hasChildNodes()) {
-        screen.replaceChildren()
-
-    } else if (buttonnText == "DELETE" && screen.hasChildNodes()) {
-        screen.removeChild(screen.lastChild)
-
-    } else if (buttonnText != "DELETE" && buttonnText!= "CLEAR"){
-        let content = document.createTextNode(buttonnText);
-        screen.appendChild(content)
-    }
-}
-
-
