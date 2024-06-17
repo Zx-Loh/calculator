@@ -7,7 +7,7 @@ const buttons = document.querySelectorAll(".button")
 
 
 function reset() {
-    return firstNumber = "", secondNumber = "", operator = "", ans = 0
+    return firstNumber = "", secondNumber = "", operator = ""
 }
 
 
@@ -50,11 +50,13 @@ function updateDisplay(keyPressed) {
             break
 
         default:
-            if (firstNumber == "" && operator == "") {
+            //If user has not input an operator, all numbers pressed must be to input the first number
+            if (operator == "") {
                 let content = document.createTextNode(keyPressed);
                 screen.appendChild(content)
                 firstNumber += keyPressed
 
+            //Else if there is already an operator, the user must be inputting the second number
             } else {
                 let content = document.createTextNode(keyPressed);
                 screen.appendChild(content)
@@ -105,4 +107,7 @@ function operate(a, b, sign) {
     let content = document.createTextNode(ans);
     screen.appendChild(content)
     reset()
+    firstNumber = ans
+    ans = 0
+    return firstNumber, ans
 }
