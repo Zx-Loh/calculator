@@ -41,7 +41,7 @@ function buttonPress(event) {
 
     //If = is pressed and user has input 2 numbers + operator, calls operate function to calculate the expression
     } else if (buttonText == "=" && secondNumber && operator) {
-        operate(parseInt(firstNumber), parseInt(secondNumber), operator)
+        operate(parseFloat(firstNumber), parseFloat(secondNumber), operator)
 
     //If 2 numbers and operatore have not been input by user, calls updateDisplay function
     } else if (buttonText != "DELETE" && buttonText != "CLEAR" && buttonText != "=") {
@@ -58,7 +58,7 @@ function updateDisplay(keyPressed) {
         case "/":
         case "*":
             if (secondNumber) { //If user has already input 2 numbers and an operator, evaluate the first expression before appending the new operator
-                operate(parseInt(firstNumber), parseInt(secondNumber), operator)
+                operate(parseFloat(firstNumber), parseFloat(secondNumber), operator)
             }
             let content = document.createTextNode(keyPressed);
             screen.appendChild(content)
@@ -119,6 +119,7 @@ function operate(a, b, sign) {
             break;
     }
 
+    ans = parseFloat((ans).toFixed(6))
     screen.replaceChildren()
     let content = document.createTextNode(ans);
     screen.appendChild(content)
