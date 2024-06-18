@@ -65,6 +65,19 @@ function updateDisplay(keyPressed) {
             operator = keyPressed
             break
 
+        case ".": //Checks to ensure that only 1 decimal point is present per number
+            if (operator == "" && (firstNumber.indexOf(".") > -1) == false) {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                firstNumber += keyPressed
+
+            } else if (operator && (secondNumber.indexOf(".") > -1) == false) {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                secondNumber += keyPressed
+            }
+            break
+
         default:
             //If user has not input an operator, all numbers pressed must be to input the first number
             if (operator == "") {
