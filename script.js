@@ -1,15 +1,105 @@
-let firstNumber = 0
-let secondNumber = 0
+let firstNumber = ""
+let secondNumber = ""
 let operator = ""
-const screen = document.getElementById("screen")
+let ans = 0
+const screen = document.querySelector("#screen")
 const buttons = document.querySelectorAll(".button")
 
 
+
+//Reset function that clears all variables and sets it back to initial state
+function reset() {
+    return firstNumber = "", secondNumber = "", operator = ""
+}
+
+function backspace() {
+    screen.removeChild(screen.lastChild) //Removes last character from display
+
+    if (secondNumber) {
+        secondNumber = secondNumber.slice(0, -1)
+    } else if (operator) {
+        operator = ""
+    } else {
+        firstNumber = firstNumber.slice(0, -1)
+    }
+}
+
 buttons.forEach((item) => {
-    item.addEventListener("click", updateDisplay)
+    item.addEventListener("click", buttonPress)
 })
 
+//Checks which button was pressed, if CLEAR or DELETE was pressed, calls corresponding functions
+function buttonPress(event) { 
+    const buttonText = event.target.innerText
 
+    // Get the current text length on the screen
+    let screenText = screen.textContent.length || ""
+
+    if (buttonText == "CLEAR" && screen.hasChildNodes()) {
+        screen.replaceChildren()
+        reset()
+
+    } else if (buttonText == "DELETE" && screen.hasChildNodes()) {
+        backspace()
+
+    //If = is pressed and user has input 2 numbers + operator, calls operate function to calculate the expression
+    } else if (buttonText == "=" && secondNumber && operator && screenText < 18) {
+        operate(parseFloat(firstNumber), parseFloat(secondNumber), operator)
+
+    //If 2 numbers and operatore have not been input by user, calls updateDisplay function
+    } else if (buttonText != "DELETE" && buttonText != "CLEAR" && buttonText != "=" && screenText < 18) {
+        updateDisplay(buttonText)
+    }
+}
+
+//Checks if there is an existing value for first/second number and operator
+//Updates variable and display accordingly
+function updateDisplay(keyPressed) {
+    switch(keyPressed) {
+        case "+":
+        case "-":
+        case "/":
+        case "*":
+            if (secondNumber) { //If user has already input 2 numbers and an operator, evaluate the first expression before appending the new operator
+                operate(parseFloat(firstNumber), parseFloat(secondNumber), operator)
+            }
+            let content = document.createTextNode(keyPressed);
+            screen.appendChild(content)
+            operator = keyPressed
+            break
+
+        case ".": //Checks to ensure that only 1 decimal point is present per number
+            if (operator == "" && (firstNumber.indexOf(".") > -1) == false) {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                firstNumber += keyPressed
+
+            } else if (operator && (secondNumber.indexOf(".") > -1) == false) {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                secondNumber += keyPressed
+            }
+            break
+
+        default:
+            //If user has not input an operator, all numbers pressed must be to input the first number
+            if (operator == "") {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                firstNumber += keyPressed
+
+            //Else if there is already an operator, the user must be inputting the second number
+            } else {
+                let content = document.createTextNode(keyPressed);
+                screen.appendChild(content)
+                secondNumber += keyPressed
+            }
+    }
+    return operator, firstNumber, secondNumber
+}
+
+
+//Operate
 function add(a, b) {
     return a + b
 }
@@ -29,41 +119,28 @@ function divide(a, b) {
 function operate(a, b, sign) {
     switch(sign) {
         case "+":
-            add(a, b)
+            ans = add(a, b)
             break;
 
         case "-":
-            subtract(a, b)
+            ans = subtract(a, b)
             break;
 
         case "*":
-            multiply(a, b)
+            ans = multiply(a, b)
             break;
 
         case "/":
-            divide(a, b)
+            ans = divide(a, b)
             break;
     }
+
+    ans = parseFloat((ans).toFixed(6))
+    screen.replaceChildren()
+    let content = document.createTextNode(ans);
+    screen.appendChild(content)
+    reset()
+    firstNumber = ans.toString()
+    ans = 0
+    return firstNumber, ans
 }
-
-function updateDisplay(event) {
-    const buttonText = event.target.innerText
-
-    // Get the current text length on the screen
-    let screenText = screen.textContent.length || ""
-
-    if (buttonText == "CLEAR" && screen.hasChildNodes()) {
-        screen.replaceChildren()
-
-    } else if (buttonText == "DELETE" && screen.hasChildNodes()) {
-        screen.removeChild(screen.lastChild)
-
-    } else if (buttonText != "DELETE" && buttonText!= "CLEAR"){
-        if (screenText < 18) { //Only allows text to be appended to the screen element if the total display length is <18
-            let content = document.createTextNode(buttonText);
-            screen.appendChild(content)
-        }
-    }
-}
-
-
