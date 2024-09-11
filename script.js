@@ -1,7 +1,7 @@
 let firstNumber = 0
 let secondNumber = 0
 let operator = ""
-const screen = document.querySelector("#screen")
+const screen = document.getElementById("screen")
 const buttons = document.querySelectorAll(".button")
 
 
@@ -47,16 +47,22 @@ function operate(a, b, sign) {
 }
 
 function updateDisplay(event) {
-    const buttonnText = event.target.innerText
-    if (buttonnText == "CLEAR" && screen.hasChildNodes()) {
+    const buttonText = event.target.innerText
+
+    // Get the current text length on the screen
+    let screenText = screen.textContent.length || ""
+
+    if (buttonText == "CLEAR" && screen.hasChildNodes()) {
         screen.replaceChildren()
 
-    } else if (buttonnText == "DELETE" && screen.hasChildNodes()) {
+    } else if (buttonText == "DELETE" && screen.hasChildNodes()) {
         screen.removeChild(screen.lastChild)
 
-    } else if (buttonnText != "DELETE" && buttonnText!= "CLEAR"){
-        let content = document.createTextNode(buttonnText);
-        screen.appendChild(content)
+    } else if (buttonText != "DELETE" && buttonText!= "CLEAR"){
+        if (screenText < 18) { //Only allows text to be appended to the screen element if the total display length is <18
+            let content = document.createTextNode(buttonText);
+            screen.appendChild(content)
+        }
     }
 }
 
