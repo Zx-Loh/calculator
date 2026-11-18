@@ -25,6 +25,7 @@ body, html {
 
 .items {
     margin: 5px;
+    border: 1px solid black;
 }
 
 #calculator {
