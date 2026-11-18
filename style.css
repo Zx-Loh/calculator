@@ -33,7 +33,7 @@ body, html {
     text-align: center;
     border: 1px solid black;
     align-items: center;
-    font-size: 38px;
+    font-size: 32px;
 }
 
 #calculator {
@@ -44,13 +44,16 @@ body, html {
 }
 
 #buttons {
-    flex: auto;
+    flex: 4 1 0;
     border: 1px solid black;
 }
 
 #display {
-    flex-grow: 1;
+    flex: auto;
     border: 1px solid black;
+    font-size: 76px;
+    justify-content: end;
+    align-items: center;
 }
 
 .center {
