@@ -23,6 +23,8 @@ function divide(a, b)
 let firstNumber = 0;
 let secondNumber = 0;
 let operator = "";
+const display = document.querySelector("#display");
+const numbers = "01233456789"
 
 // Takes in 2 numbers and an operator, and calls the corresponding function based on the operator
 // Stores the result in a variable called "result" and returns it
@@ -51,3 +53,46 @@ function operate(firstNumber, secondNumber, operator)
 
     return result;
 };
+
+
+// Function to update the number variable
+function updateNumber(number)
+{
+    // Checks if an operator button has been pressed. If not, appends digit to firstNumber variable
+    // Otherwise, append digit to secondNumber variable
+    if (operator == "")
+    {
+        firstNumber = firstNumber * 10 + number;
+    }
+    else
+    {
+        secondNumber = secondNumber * 10 + number;
+    }
+}
+
+// Function to update display
+function updateDisplay()
+{
+    // Clears current display and reupdates the text content of display with current variables
+    display.textContent = "";
+    let displayText = "";
+    displayText = `${firstNumber}`;
+    display.textContent = displayText;
+}
+
+// Attach event listeners on all buttons to update the number variables and operator when clicked
+const buttons = document.querySelectorAll(".button")
+
+buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        const value = e.target.textContent
+
+        if (numbers.includes(value))
+        {
+            updateNumber(Number(value)); 
+        }
+
+        // Update display
+        updateDisplay();
+    })
+});
