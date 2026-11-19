@@ -42,7 +42,7 @@ function operate(firstNumber, secondNumber, operator)
             result = subtract(firstNumber, secondNumber);
             break;
 
-        case "*":
+        case "x":
             result = multiply(firstNumber, secondNumber);
             break;
 
@@ -71,13 +71,19 @@ function updateNumber(number)
 }
 
 // Function to update display
-function updateDisplay()
+function updateDisplay(number)
 {
     // Clears current display and reupdates the text content of display with current variables
     display.textContent = "";
     let displayText = "";
-    displayText = `${firstNumber}`;
+    displayText = `${number}`;
     display.textContent = displayText;
+}
+
+// Function to update the operator variable with the latest input
+function updateOperator(sign)
+{
+    operator = sign;
 }
 
 // Attach event listeners on all buttons to update the number variables and operator when clicked
@@ -90,9 +96,34 @@ buttons.forEach((button) => {
         if (numbers.includes(value))
         {
             updateNumber(Number(value)); 
+            
+            if (operator == "")
+            {
+                updateDisplay(firstNumber);
+            }
+            else 
+            {
+                updateDisplay(secondNumber);
+            }
         }
-
-        // Update display
-        updateDisplay();
+        else 
+        {
+            // If clear button pressed
+            if (value == "Clear")
+            {
+                
+            }
+            // If equals button pressed, evaluate current equation
+            else if (value == "=") 
+            {
+                let answer = operate(firstNumber, secondNumber, operator);
+                updateDisplay(answer);
+            }
+            // Operator was pressed
+            else
+            {
+                updateOperator(value);
+            }
+        }
     })
 });
