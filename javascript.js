@@ -17,6 +17,12 @@ function multiply(a, b)
 
 function divide(a, b)
 {
+    // Check for divide by 0
+    if (b == 0)
+    {
+        alert("Nice try =)");
+        return 0;
+    }
     return a / b;
 }
 
