@@ -86,6 +86,8 @@ function updateOperator(sign)
     operator = sign;
 }
 
+
+
 // Attach event listeners on all buttons to update the number variables and operator when clicked
 const buttons = document.querySelectorAll(".button")
 
@@ -114,14 +116,18 @@ buttons.forEach((button) => {
                 
             }
             // If equals button pressed, evaluate current equation
+            // set the answer as the first number, and clear operator and second number varialbe
             else if (value == "=") 
             {
-                let answer = operate(firstNumber, secondNumber, operator);
-                updateDisplay(answer);
+                firstNumber = operate(firstNumber, secondNumber, operator);
+                updateOperator("");
+                secondNumber = 0
+                updateDisplay(firstNumber);
             }
             // Operator was pressed
             else
             {
+
                 updateOperator(value);
             }
         }
