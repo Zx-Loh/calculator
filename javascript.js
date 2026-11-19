@@ -132,7 +132,11 @@ buttons.forEach((button) => {
             // Operator was pressed
             else
             {
-
+                // If a pair of numbers have already been keyed in, evaluate those first 
+                if (secondNumber != 0)
+                {
+                    evaluate();
+                }
                 updateOperator(value);
             }
         }
