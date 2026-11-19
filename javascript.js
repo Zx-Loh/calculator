@@ -31,6 +31,7 @@ let secondNumber = 0;
 let operator = "";
 const display = document.querySelector("#display");
 const numbers = "01233456789"
+let result = false;
 
 // Takes in 2 numbers and an operator, and calls the corresponding function based on the operator
 // Stores the result in a variable called "result" and returns it
@@ -100,6 +101,7 @@ function evaluate()
     updateOperator("");
     secondNumber = 0
     updateDisplay(firstNumber); 
+    result = true;
 }
 
 // Function that clears all variables and displays
@@ -121,6 +123,12 @@ buttons.forEach((button) => {
 
         if (numbers.includes(value))
         {
+            if (result == true)
+            {
+                clear();
+                result = false;
+            }
+
             updateNumber(Number(value)); 
             
             if (operator == "")
@@ -154,6 +162,7 @@ buttons.forEach((button) => {
                     evaluate();
                 }
                 updateOperator(value);
+                result = false;
             }
         }
     })
