@@ -96,7 +96,7 @@ function updateOperator(sign)
 // be used in the next equation
 function evaluate()
 {
-    firstNumber = operate(firstNumber, secondNumber, operator);
+    firstNumber = +operate(firstNumber, secondNumber, operator).toFixed(6);
     updateOperator("");
     secondNumber = 0
     updateDisplay(firstNumber); 
