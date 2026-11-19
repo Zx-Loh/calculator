@@ -96,6 +96,16 @@ function evaluate()
     updateDisplay(firstNumber); 
 }
 
+// Function that clears all variables and displays
+function clear()
+{
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = "";
+
+    updateDisplay(firstNumber);
+}
+
 // Attach event listeners on all buttons to update the number variables and operator when clicked
 const buttons = document.querySelectorAll(".button")
 
@@ -121,7 +131,7 @@ buttons.forEach((button) => {
             // If clear button pressed
             if (value == "Clear")
             {
-                
+                clear();
             }
             // If equals button pressed, evaluate current equation
             // set the answer as the first number, and clear operator and second number varialbe
