@@ -49,7 +49,7 @@ body, html {
 }
 
 #display {
-    flex: auto;
+    flex: 1 0 0;
     border: 1px solid black;
     font-size: 76px;
     justify-content: end;
