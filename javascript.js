@@ -141,7 +141,7 @@ buttons.forEach((button) => {
             }
             // If equals button pressed, evaluate current equation
             // set the answer as the first number, and clear operator and second number varialbe
-            else if (value == "=") 
+            else if (value == "=" && operator != "" && secondNumber != 0) 
             {
                 evaluate();
             }
